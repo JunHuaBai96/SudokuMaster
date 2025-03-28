@@ -65,7 +65,7 @@
 
 1. 克隆仓库：
 ```bash
-git clone https://github.com/yourusername/SudokuMaster.git
+git clone https://github.com/JunHuaBai96/SudokuMaster.git
 ```
 
 2. 打开 `index.html` 文件即可开始游戏
