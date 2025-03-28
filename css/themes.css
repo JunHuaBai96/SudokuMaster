@@ -1,0 +1,148 @@
+/* 通用边框样式 */
+.sudoku-grid {
+    --box-border-color: var(--grid-border-color);
+    --box-border-width: var(--border-thick);
+    border: var(--border-thicker) solid var(--grid-border-color);
+    background-color: white;
+    padding: var(--border-thin);
+}
+
+.cell {
+    border: var(--border-thin) solid var(--cell-border-color);
+}
+
+/* 标准数独主题 */
+.sudoku-grid.standard {
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+}
+
+.sudoku-grid.standard .cell:nth-child(3n):not(:last-child) {
+    border-right: var(--box-border-width) solid var(--box-border-color);
+}
+
+.sudoku-grid.standard .cell:nth-child(n+19):nth-child(-n+27),
+.sudoku-grid.standard .cell:nth-child(n+46):nth-child(-n+54) {
+    border-bottom: var(--box-border-width) solid var(--box-border-color);
+}
+
+/* 迷你数独主题 */
+.sudoku-grid.mini4 {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+
+.sudoku-grid.mini4 .cell:nth-child(2n):not(:last-child) {
+    border-right: var(--box-border-width) solid var(--box-border-color);
+}
+
+.sudoku-grid.mini4 .cell:nth-child(n+5):nth-child(-n+8) {
+    border-bottom: var(--box-border-width) solid var(--box-border-color);
+}
+
+/* 矩形数独主题 */
+.sudoku-grid.mini6 {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+}
+
+.sudoku-grid.mini6 .cell:nth-child(3n):not(:last-child) {
+    border-right: var(--box-border-width) solid var(--box-border-color);
+}
+
+.sudoku-grid.mini6 .cell:nth-child(n+7):nth-child(-n+12),
+.sudoku-grid.mini6 .cell:nth-child(n+19):nth-child(-n+24) {
+    border-bottom: var(--box-border-width) solid var(--box-border-color);
+}
+
+/* 矩形大数独主题 */
+.sudoku-grid.large12 {
+    font-size: 0.9em;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+}
+
+.sudoku-grid.large12 .cell:nth-child(4n):not(:last-child) {
+    border-right: var(--box-border-width) solid var(--box-border-color);
+}
+
+.sudoku-grid.large12 .cell:nth-child(n+37):nth-child(-n+48),
+.sudoku-grid.large12 .cell:nth-child(n+85):nth-child(-n+96) {
+    border-bottom: var(--box-border-width) solid var(--box-border-color);
+}
+
+/* 大数独主题 */
+.sudoku-grid.large16 {
+    font-size: 0.8em;
+    grid-template-columns: repeat(16, 1fr);
+    grid-template-rows: repeat(16, 1fr);
+}
+
+.sudoku-grid.large16 .cell:nth-child(4n):not(:last-child) {
+    border-right: var(--box-border-width) solid var(--box-border-color);
+}
+
+.sudoku-grid.large16 .cell:nth-child(n+49):nth-child(-n+64),
+.sudoku-grid.large16 .cell:nth-child(n+113):nth-child(-n+128),
+.sudoku-grid.large16 .cell:nth-child(n+177):nth-child(-n+192) {
+    border-bottom: var(--box-border-width) solid var(--box-border-color);
+}
+
+/* 数字键盘主题适配 */
+.numpad {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--border-thin);
+    margin: 20px auto;
+    max-width: 400px;
+    padding: 10px;
+}
+
+.numpad button {
+    padding: 15px;
+    font-size: 1.2em;
+    border: var(--border-thin) solid var(--cell-border-color);
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.numpad button:hover:not(.unavailable) {
+    background-color: #e3f2fd;
+}
+
+.numpad button.unavailable {
+    opacity: 0.5;
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+
+.numpad button:last-child {
+    grid-column: span 5;
+    background-color: #f8f9fa;
+}
+
+/* 调整字体大小 */
+.sudoku-grid.large12 .cell {
+    font-size: 0.9em;
+}
+
+.sudoku-grid.large16 .cell {
+    font-size: 0.8em;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .sudoku-grid {
+        font-size: 0.9em;
+    }
+
+    .sudoku-grid.large12 .cell {
+        font-size: 0.8em;
+    }
+
+    .sudoku-grid.large16 .cell {
+        font-size: 0.7em;
+    }
+} 
