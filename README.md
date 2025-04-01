@@ -2,6 +2,8 @@
 
 一个现代化的数独游戏，支持多种数独类型和难度级别。
 
+![image](https://github.com/user-attachments/assets/7b1ba645-b417-4fd7-a9d4-9c257766e582)
+
 ## 功能特点
 
 - 支持多种数独类型：
