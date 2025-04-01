@@ -1,0 +1,393 @@
+/* 全局样式 */
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #2c3e50;
+    --background-color: #f5f6fa;
+    --grid-border-color: #34495e;
+    --cell-border-color: #bdc3c7;
+    --highlight-color: #f1c40f;
+    --error-color: #e74c3c;
+    --success-color: #2ecc71;
+    --border-thin: 1px;
+    --border-thick: 2px;
+    --border-thicker: 3px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    color: var(--secondary-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 头部样式 */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: var(--primary-color);
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.controls {
+    margin-bottom: 20px;
+}
+
+.controls select,
+.controls button {
+    padding: 8px 16px;
+    margin: 0 5px;
+    font-size: 1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.controls select {
+    background-color: white;
+    border: 1px solid var(--primary-color);
+}
+
+.controls button {
+    background-color: var(--primary-color);
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.controls button:hover {
+    background-color: #357abd;
+}
+
+.game-info {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+}
+
+/* 数独网格基础样式 */
+.sudoku-grid {
+    display: grid;
+    gap: 0;
+    background-color: white;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 1;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: var(--border-thicker) solid var(--grid-border-color);
+    padding: var(--border-thin);
+}
+
+/* 单元格基础样式 */
+.cell {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    aspect-ratio: 1;
+    border: var(--border-thin) solid var(--cell-border-color);
+    user-select: none;
+}
+
+/* 预填数字样式 */
+.cell.given {
+    font-weight: 700;
+    color: #1a365d;  /* 深蓝色 */
+    background-color: #f8fafc;  /* 非常淡的背景色 */
+}
+
+/* 玩家填写的数字样式 */
+.cell:not(.given) {
+    color: #3182ce;  /* 鲜艳的蓝色 */
+    font-weight: 500;
+}
+
+/* 选中状态 */
+.cell.selected {
+    background-color: #bee3f8 !important;
+    box-shadow: inset 0 0 0 var(--border-thin) var(--primary-color);
+}
+
+/* 高亮相关单元格 */
+.cell.highlighted {
+    background-color: #ebf8ff !important;  /* 淡蓝色背景 */
+    transition: background-color 0.2s ease;
+}
+
+/* 高亮相同数字 */
+.cell.same-number {
+    background-color: #c6f6d5 !important;  /* 淡绿色 */
+    transition: background-color 0.2s ease;
+}
+
+/* 错误状态 */
+.cell.error {
+    animation: shake 0.5s;
+}
+
+.cell.error::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(245, 66, 66, 0.25);
+    z-index: 1;
+    animation: fadeInOut 0.5s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* 数字键盘样式 */
+.numpad {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin: 20px auto;
+    max-width: 400px;
+    padding: 15px;
+    background-color: #f7fafc;
+    border-radius: 8px;
+}
+
+.numpad button {
+    padding: 15px;
+    font-size: 1.2em;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #2d3748;
+}
+
+.numpad button:hover:not(.unavailable) {
+    background-color: #ebf8ff;
+    transform: translateY(-1px);
+}
+
+.numpad button.unavailable {
+    opacity: 0.6;
+    background-color: #edf2f7;
+    cursor: not-allowed;
+    color: #a0aec0;
+    text-decoration: line-through;  /* 添加删除线效果 */
+}
+
+.numpad button:last-child {
+    grid-column: span 5;
+    background-color: #f8f9fa;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+/* 动画效果 */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* 游戏规则样式 */
+.game-rules {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.game-rules h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.game-rules h3 {
+    color: var(--secondary-color);
+    margin: 15px 0 10px;
+}
+
+.game-rules ul {
+    list-style-position: inside;
+    margin-left: 20px;
+}
+
+/* 游戏类型选择器样式 */
+.game-type-select {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    font-size: 1em;
+    border: 2px solid var(--primary-color);
+    border-radius: 6px;
+    background-color: white;
+    color: var(--secondary-color);
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.game-type-select option {
+    padding: 10px;
+}
+
+/* 错误提示样式 */
+.mistake-alert {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #e53e3e;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.3s ease-out, fadeOut 0.3s ease-out 1.7s forwards;
+    z-index: 1000;
+}
+
+@keyframes slideDown {
+    from { transform: translate(-50%, -100%); }
+    to { transform: translate(-50%, 0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* 游戏结束对话框样式 */
+.game-over-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    z-index: 1000;
+}
+
+.game-over-modal h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.game-over-modal .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.game-over-modal button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.game-over-modal .retry {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.game-over-modal .exit {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+/* 新纪录祝贺效果 */
+.celebration {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1001;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: var(--primary-color);
+    animation: confetti-fall 3s ease-out forwards;
+}
+
+@keyframes confetti-fall {
+    from {
+        transform: translateY(-100%) rotate(0deg);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .controls {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .controls select,
+    .controls button {
+        width: 100%;
+        margin: 0;
+    }
+
+    .game-info {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .sudoku-grid {
+        max-width: 100%;
+    }
+
+    .cell {
+        font-size: 1.2em;
+    }
+
+    .numpad {
+        grid-template-columns: repeat(3, 1fr);
+    }
+} 
