@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SudokuMaster - 多功能数独游戏</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/themes.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SudokuMaster</h1>
+            <div class="controls">
+                <select id="gameType" class="game-type-select">
+                    <option value="standard" selected>标准数独 (9x9)</option>
+                    <option value="mini4">迷你数独 (4x4)</option>
+                    <option value="mini6">迷你数独 (6x6)</option>
+                    <option value="large12">大数独 (12x12)</option>
+                    <option value="large16">超大数独 (16x16)</option>
+                </select>
+                <button id="newGame">新游戏</button>
+                <button id="hint">提示</button>
+                <button id="reset">重置</button>
+            </div>
+            <div class="game-info">
+                <div class="info-item">
+                    <span class="label">剩余机会：</span>
+                    <span id="mistakes">3</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">提示次数：</span>
+                    <span id="hints">3</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">用时：</span>
+                    <span id="time">00:00</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">最佳时间：</span>
+                    <span id="bestTime">--:--</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div id="sudokuGrid" class="sudoku-grid"></div>
+            <div id="numpad" class="numpad"></div>
+        </main>
+
+        <div id="gameRules" class="game-rules">
+            <h2>游戏玩法介绍</h2>
+            <div class="rules-content">
+                <h3>1. 数独类型介绍</h3>
+                <div class="sudoku-types">
+                    <h4>标准数独 (9x9 | 九宫格)</h4>
+                    <p>经典的9x9数独游戏，将数字1-9填入网格中，使每行、每列和每个3x3的九宫格中的数字都不重复。</p>
+
+                    <h4>迷你数独 (4x4 | 四宫格)</h4>
+                    <p>使用1-4的数字，填入4x4的网格中。每行、每列和每个2x2的四宫格中的数字都不能重复。适合初学者和快速游戏。</p>
+
+                    <h4>矩形数独 (6x6 | 2x3宫格)</h4>
+                    <p>使用1-6的数字，填入6x6的网格中。每行、每列和每个2x3的矩形区域中的数字都不能重复。结合了迷你和标准数独的特点。</p>
+
+                    <h4>矩形大数独 (12x12 | 3x4宫格)</h4>
+                    <p>使用1-12的数字，填入12x12的网格中。每行、每列和每个3x4的矩形区域中的数字都不能重复。增加了游戏的复杂度。</p>
+
+                    <h4>大数独 (16x16 | 十六宫格)</h4>
+                    <p>使用1-9和A-G的16个符号，填入16x16的网格中。每行、每列和每个4x4的十六宫格中的符号都不能重复。最具挑战性的变体。</p>
+                </div>
+
+                <h3>2. 游戏规则</h3>
+                <ul>
+                    <li>每次开始新游戏时，你有3次填错的机会和3次提示的机会</li>
+                    <li>填错数字会减少一次机会，用完所有机会游戏结束</li>
+                    <li>使用提示功能会减少一次提示机会</li>
+                    <li>完成游戏后会记录你的最佳时间</li>
+                </ul>
+
+                <h3>3. 游戏操作</h3>
+                <ul>
+                    <li><strong>选择单元格</strong>：点击空白格子进行选择</li>
+                    <li><strong>填写数字</strong>：使用屏幕上的数字键盘输入数字</li>
+                    <li><strong>高亮功能</strong>：
+                        <ul>
+                            <li>选中格子时会自动高亮显示相关的行、列和小方块</li>
+                            <li>点击已填写的数字时，会高亮显示所有相同的数字</li>
+                            <li>选择空格时，数字键盘上不可用的数字会自动变灰</li>
+                        </ul>
+                    </li>
+                    <li><strong>获取提示</strong>：选中空格后点击"提示"按钮</li>
+                    <li><strong>重置游戏</strong>：点击"重置"可以清除所有填写的数字</li>
+                </ul>
+
+                <h3>4. 完成游戏</h3>
+                <p>成功填写所有空格且符合规则时，游戏结束。系统会显示完成时间和是否打破最佳记录。</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle"></h2>
+            <p id="modalMessage"></p>
+        </div>
+    </div>
+
+    <script src="js/sudoku.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html> 

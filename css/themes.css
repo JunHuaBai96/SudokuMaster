@@ -1,0 +1,233 @@
+/* 主题变量 */
+:root {
+    /* 标准数独 (9x9) */
+    --standard-grid-size: 9;
+    --standard-box-size: 3;
+    --standard-font-size: 1.2em;
+    --standard-font-size-large: 1.4em;
+    --standard-font-size-small: 0.9em;
+    --standard-font-size-mobile: 0.8em;
+
+    /* 迷你数独 (4x4) */
+    --mini4-grid-size: 4;
+    --mini4-box-size: 2;
+    --mini4-font-size: 1.4em;
+    --mini4-font-size-large: 1.6em;
+    --mini4-font-size-small: 1.1em;
+    --mini4-font-size-mobile: 1em;
+
+    /* 迷你数独 (6x6) */
+    --mini6-grid-size: 6;
+    --mini6-box-size: 2;
+    --mini6-font-size: 1.3em;
+    --mini6-font-size-large: 1.5em;
+    --mini6-font-size-small: 1em;
+    --mini6-font-size-mobile: 0.9em;
+
+    /* 大数独 (12x12) */
+    --large12-grid-size: 12;
+    --large12-box-size: 3;
+    --large12-font-size: 1em;
+    --large12-font-size-large: 1.2em;
+    --large12-font-size-small: 0.8em;
+    --large12-font-size-mobile: 0.7em;
+
+    /* 超大数独 (16x16) */
+    --large16-grid-size: 16;
+    --large16-box-size: 4;
+    --large16-font-size: 0.9em;
+    --large16-font-size-large: 1.1em;
+    --large16-font-size-small: 0.7em;
+    --large16-font-size-mobile: 0.6em;
+}
+
+/* 通用边框样式 */
+.sudoku-grid {
+    --box-border-color: var(--grid-border-color);
+    --box-border-width: var(--border-thick);
+    border: var(--border-thicker) solid var(--grid-border-color);
+    background-color: white;
+    padding: var(--border-thin);
+}
+
+.cell {
+    border: var(--border-thin) solid var(--cell-border-color);
+}
+
+/* 标准数独主题 */
+.sudoku-grid.standard {
+    grid-template-columns: repeat(var(--standard-grid-size), 1fr);
+    grid-template-rows: repeat(var(--standard-grid-size), 1fr);
+    font-size: var(--standard-font-size);
+}
+
+.sudoku-grid.standard .cell:nth-child(3n):not(:last-child) {
+    border-right: var(--box-border-width) solid var(--box-border-color);
+}
+
+.sudoku-grid.standard .cell:nth-child(n+19):nth-child(-n+27),
+.sudoku-grid.standard .cell:nth-child(n+46):nth-child(-n+54) {
+    border-bottom: var(--box-border-width) solid var(--box-border-color);
+}
+
+/* 迷你数独主题 */
+.sudoku-grid.mini4 {
+    grid-template-columns: repeat(var(--mini4-grid-size), 1fr);
+    grid-template-rows: repeat(var(--mini4-grid-size), 1fr);
+    font-size: var(--mini4-font-size);
+}
+
+.sudoku-grid.mini4 .cell:nth-child(2n):not(:last-child) {
+    border-right: var(--box-border-width) solid var(--box-border-color);
+}
+
+.sudoku-grid.mini4 .cell:nth-child(n+5):nth-child(-n+8) {
+    border-bottom: var(--box-border-width) solid var(--box-border-color);
+}
+
+/* 矩形数独主题 */
+.sudoku-grid.mini6 {
+    grid-template-columns: repeat(var(--mini6-grid-size), 1fr);
+    grid-template-rows: repeat(var(--mini6-grid-size), 1fr);
+    font-size: var(--mini6-font-size);
+}
+
+.sudoku-grid.mini6 .cell:nth-child(3n):not(:last-child) {
+    border-right: var(--box-border-width) solid var(--box-border-color);
+}
+
+.sudoku-grid.mini6 .cell:nth-child(n+7):nth-child(-n+12),
+.sudoku-grid.mini6 .cell:nth-child(n+19):nth-child(-n+24) {
+    border-bottom: var(--box-border-width) solid var(--box-border-color);
+}
+
+/* 矩形大数独主题 */
+.sudoku-grid.large12 {
+    grid-template-columns: repeat(var(--large12-grid-size), 1fr);
+    grid-template-rows: repeat(var(--large12-grid-size), 1fr);
+    font-size: var(--large12-font-size);
+}
+
+.sudoku-grid.large12 .cell:nth-child(4n):not(:last-child) {
+    border-right: var(--box-border-width) solid var(--box-border-color);
+}
+
+.sudoku-grid.large12 .cell:nth-child(n+37):nth-child(-n+48),
+.sudoku-grid.large12 .cell:nth-child(n+85):nth-child(-n+96) {
+    border-bottom: var(--box-border-width) solid var(--box-border-color);
+}
+
+/* 大数独主题 */
+.sudoku-grid.large16 {
+    grid-template-columns: repeat(var(--large16-grid-size), 1fr);
+    grid-template-rows: repeat(var(--large16-grid-size), 1fr);
+    font-size: var(--large16-font-size);
+    --box-border-width: 1.5px;  /* 减小边框宽度 */
+}
+
+/* 每4列添加粗边框 */
+.sudoku-grid.large16 .cell:nth-child(4n):not(:last-child) {
+    border-right: var(--box-border-width) solid var(--box-border-color);
+}
+
+/* 每4行添加粗边框 */
+.sudoku-grid.large16 .cell:nth-child(n+49):nth-child(-n+64),
+.sudoku-grid.large16 .cell:nth-child(n+113):nth-child(-n+128),
+.sudoku-grid.large16 .cell:nth-child(n+177):nth-child(-n+192) {
+    border-bottom: var(--box-border-width) solid var(--box-border-color);
+}
+
+/* 调整单元格边框 */
+.sudoku-grid.large16 .cell {
+    border: 0.5px solid var(--cell-border-color);  /* 减小普通边框宽度 */
+}
+
+/* 调整字体大小 */
+.sudoku-grid.large16 {
+    --large16-font-size: 0.8em;  /* 稍微减小字体大小 */
+    --large16-font-size-large: 1em;
+    --large16-font-size-small: 0.7em;
+    --large16-font-size-mobile: 0.6em;
+}
+
+/* 调整数字键盘大小 */
+.sudoku-grid.large16 ~ .numpad {
+    font-size: 0.9em;
+    max-width: 500px;  /* 增加数字键盘宽度 */
+}
+
+/* 数字键盘主题适配 */
+.numpad {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--border-thin);
+    margin: 20px auto;
+    max-width: 400px;
+    padding: 10px;
+}
+
+.numpad button {
+    padding: 15px;
+    font-size: 1.2em;
+    border: var(--border-thin) solid var(--cell-border-color);
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.numpad button:hover:not(.unavailable) {
+    background-color: #e3f2fd;
+}
+
+.numpad button.unavailable {
+    opacity: 0.5;
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+
+.numpad button:last-child {
+    grid-column: span 5;
+    background-color: #f8f9fa;
+}
+
+/* 响应式设计 */
+@media (min-width: 768px) {
+    .sudoku-grid.standard {
+        font-size: var(--standard-font-size-large);
+    }
+    .sudoku-grid.mini4 {
+        font-size: var(--mini4-font-size-large);
+    }
+    .sudoku-grid.mini6 {
+        font-size: var(--mini6-font-size-large);
+    }
+    .sudoku-grid.large12 {
+        font-size: var(--large12-font-size-large);
+    }
+    .sudoku-grid.large16 {
+        font-size: var(--large16-font-size-large);
+    }
+}
+
+@media (max-width: 767px) {
+    .sudoku-grid.standard {
+        font-size: var(--standard-font-size-mobile);
+    }
+    .sudoku-grid.mini4 {
+        font-size: var(--mini4-font-size-mobile);
+    }
+    .sudoku-grid.mini6 {
+        font-size: var(--mini6-font-size-mobile);
+    }
+    .sudoku-grid.large12 {
+        font-size: var(--large12-font-size-mobile);
+    }
+    .sudoku-grid.large16 {
+        font-size: var(--large16-font-size-mobile);
+    }
+    
+    .sudoku-grid.large16 .cell {
+        border: 0.5px solid var(--cell-border-color);
+    }
+} 
